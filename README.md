@@ -13,7 +13,15 @@ This git repository details the technical assessment for AI Singapore's AI Produ
 
 ### Assessment 1: Project Gutenberg
 
-To be detailed!
+Conducts a word count of `assets\pg16317.txt`.
+
+Prints top 10-20 word frequencies to console and total frequencies to `wordcount.txt`.
+
+To run:
+```bash
+cd wordcounter
+python main.py
+```
 
 ### Assessment 2: Book Discovery
 
