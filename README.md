@@ -7,7 +7,7 @@ Created _1st June 2025_
 |Email|tan_shaoyun@hotmail.com<br/>shao.cloud@gmail.com (Github)|
 
 ## Details
-This git repository details the technical assessment 
+This git repository details the technical assessment for AI Singapore's AI Products role.
 
 ## Running the Assessments
 
