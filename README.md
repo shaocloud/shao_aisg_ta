@@ -7,11 +7,11 @@ Created _1st June 2025_
 |Email|tan_shaoyun@hotmail.com<br/>shao.cloud@gmail.com (Github)|
 
 ## Details
-This git repository details the technical assessment for AI Singapore's AI Products role.
+This git repository details my solutions the technical assessments, for application to AI Singapore's AI Products role.
 
 ## Assessments
 
-### Assessment 1: Project Gutenberg
+### 🔠 Assessment 1: Project Gutenberg
 
 Conducts a word count of `assets\pg16317.txt`.
 
@@ -23,7 +23,7 @@ cd wordcounter
 python main.py
 ```
 
-### Assessment 2: Book Discovery
+### :books: Assessment 2: Book Discovery
 
 Requirements:
 1. Search function
@@ -41,17 +41,17 @@ Requirements:
    - Doesn't need authentication!
    - Bookshelf API + Users API are unnecessary
 
-### Running:
+#### Running:
 
 To be detailed!
 
-### Google Books API Fundamentals
+#### :book: Google Books API Fundamentals
 
 Searches can be done using
 
 `https://www.googleapis.com/books/v1/volumes?q=search+terms`
 
-#### Query Params
+##### Query Params
 
 The following values are accepted following `q=`:
 
@@ -67,7 +67,7 @@ E.G.
 
 We can include these in separate search fields, and programmatically merge them as a query.
 
-#### Filtering
+##### Filtering
 
 Filters types of returned books, could be good as tags
 
@@ -81,11 +81,11 @@ E.G.
 
 ```GET https://www.googleapis.com/books/v1/volumes?q=flowers&filter=free-ebooks&key=yourAPIKey```
 
-#### Pagination
+##### Pagination
 - `startIndex`
 - `maxResults`
 
-#### Fields
+##### Fields
 
 E.G.
 
