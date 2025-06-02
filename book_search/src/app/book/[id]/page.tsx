@@ -1,11 +1,4 @@
-async function getSearchResults({ term }: { term: string }) {
-    const result = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${term}`);
-    if (!result.ok) {
-        throw new Error(`Failed to fetch search results: ${result.statusText}`);
-    }
-//    console.log('result', await result.json());
-    return result.json();
-}
+import { fetchResults } from '@/app/utils/data'
 
 export default async function Page({
     params,
@@ -14,9 +7,9 @@ export default async function Page({
 }) {
     const bookId = (await params).id;
 
-    const response = await getSearchResults({ term: bookId });
+    const response = await fetchResults( bookId );
 
-    const bookNo = 4;
+    const bookNo = 0;
     console.log('response', response);
     return (
         <>
