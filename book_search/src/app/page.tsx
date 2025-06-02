@@ -1,10 +1,11 @@
-import Image from "next/image";
+import SearchGroup from "@/app/components/searchGroup";
+import ResultList from "@/app/components/resultList";
 
 export default function Home() {
   return (
     <>
-      <h1>Hello World!</h1>
-
+      <SearchGroup/>
+      <ResultList params=""/>
     </>
   );
 }
