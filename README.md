@@ -43,6 +43,17 @@ Requirements:
 
 #### Running:
 
+1. Move to the `book_search` directory
+2. Install packages using `pnpm i`
+3. Run the dev server with `pnpm dev`
+
+```bash
+cd book_search
+pnpm i
+pnpm dev
+```
+
+
 To be detailed!
 
 #### :book: Google Books API Fundamentals
