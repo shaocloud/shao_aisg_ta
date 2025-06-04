@@ -25,7 +25,7 @@ export async function fetchResults(
 
 // Handles logic for changing results to book list
 export async function parseResults(
-    resultJson: Promise<any>
+    resultJson: any
 ) : Promise<Book[]>
 {
     const awaitedJson = await resultJson;
@@ -35,6 +35,9 @@ export async function parseResults(
     }
     
     return awaitedJson.items.map((item: any) => ({
+        id: item.id,
+        imgUrl: item.volumeInfo?.imageLinks?.thumbnail 
+        || undefined,
         title: item.volumeInfo?.title || "Unknown Title",
         author: item.volumeInfo?.authors?.[0] || "Unknown Author",
         publisher: item.volumeInfo?.publisher || "Unknown Publisher",
@@ -59,6 +62,8 @@ export interface iSearch {
 }
 
 export interface Book {
+    id: string;
+    imgUrl: string;
     title: string;
     author: string;
     publisher: string;

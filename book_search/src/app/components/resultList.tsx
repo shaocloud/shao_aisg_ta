@@ -2,6 +2,8 @@
 
 import { fetchResults, Book, parseResults } from "../utils/data";
 import { useSearchParams } from "next/navigation";
+import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 export default function ResultList(){
@@ -9,6 +11,13 @@ export default function ResultList(){
     const [books, setBooks] = useState<Book[]>([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+
+    const getRowImg = (url: string) => {
+        if(url === "")
+            return undefined
+        else
+            return url
+    }
 
     useEffect(() => {
         const query = searchParams.get('query');
@@ -27,7 +36,7 @@ export default function ResultList(){
         const fetchData = async () => {
             try {
                 const results = await fetchResults(query, author, publisher, categories);
-                const parsedResults = await parseResults(Promise.resolve(results));
+                const parsedResults = await parseResults(results);
                 setBooks(parsedResults);
             } catch (err) {
                 setError(err instanceof Error ? err.message : 'An error occurred');
@@ -40,7 +49,7 @@ export default function ResultList(){
         fetchData();
     }, [searchParams]);
 
-    const columns = ['title', 'author', 'publisher', 'categories']
+    const columns = ['imgUrl', 'title', 'author', 'publisher', 'categories']
 
     console.log("[resultList] searchParams: " + searchParams);
     console.log("[resultList] results: " + JSON.stringify(books));    
@@ -78,6 +87,15 @@ export default function ResultList(){
                                     {
                                     row[col as keyof Book] === undefined ? (
                                         'N/A'
+                                        ) : col === 'imgUrl' ? (
+                                            (<img 
+                                                src={getRowImg(row[col])}
+                                                width={50} 
+                                                height={50}
+                                                alt={row['title']}
+                                                />)
+                                        ) : col === 'title' ? (
+                                            (<Link href={`/book/${row['id']}`}>{row[col as keyof Book] as string}</Link>)
                                         ) : col === 'categories' ? (
                                             (row[col as keyof Book] as string[]).map((item : string, itemIdx : number) => (
                                                 <div className="badge badge-primary" key={itemIdx}>{item}</div>

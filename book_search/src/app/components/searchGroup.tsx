@@ -66,17 +66,17 @@ export default function SearchGroup({}){
                             <input 
                                 type="text" className="input" placeholder="Author"
                                 name="author"
-                            />
+                                defaultValue={searchParams.get('author')?.toString()}/>
 
                             <label className="label">Publisher</label>
                             <input type="text" className="input" placeholder="Publisher"
                                 name="publisher"
-                            />
+                                defaultValue={searchParams.get('publisher')?.toString()}/>
 
                             <label className="label">Categories</label>
                             <input type="text" className="input" placeholder="Category"
                                 name="categories"
-                            />
+                                defaultValue={searchParams.get('categories')?.toString()}/>
                         </div>
                     </div>
                 </div>
