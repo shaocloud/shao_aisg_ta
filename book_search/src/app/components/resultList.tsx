@@ -63,7 +63,7 @@ export default function ResultList(){
     }
 
     if (books.length === 0) {
-        return <div>No results found. Try a different search.</div>;
+        return <div>No results found.</div>;
     }
 
     return (
