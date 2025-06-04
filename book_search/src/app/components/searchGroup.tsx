@@ -1,43 +1,36 @@
 "use client"
 
-import { useState } from 'react';
-import Form from 'next/form'
 // learned from 
 // https://nextjs.org/learn/dashboard-app/adding-search-and-pagination
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
-import { iSearch } from "@/app/utils/data";
-import { useDebouncedCallback } from 'use-debounce';
 
 export default function SearchGroup({}){
     const searchParams = useSearchParams();
     const pathname = usePathname();
     const { replace } = useRouter();
 
-    const [inputValue, setInputValue] = useState<iSearch>(
-        { 
-            query: '', 
-            author: '', 
-            publisher: '', 
-            categories: '' 
-        });
+    const inputKeys = ['query', 'author', 'publisher', 'categories']
 
-    const handleUpdateSearch = () => {
+    // Reads all values in the form at once
+    // replaces it in the url 
+    const handleSubmit = (formData : FormData) => {
+        const params = new URLSearchParams(searchParams);
+        
+        for(const key of inputKeys)
+        {
+            let val  = formData.get(key)
 
+            if (val != null)
+                params.set(key, val.toString())
+            else
+                params.delete(key)
+        }
+
+        replace(`${pathname}?${params.toString()}`);
     }
 
-    const handleSearch = useDebouncedCallback((term: string) => {
-        console.log(term);
-        const params = new URLSearchParams(searchParams);
-        if (term) {
-            params.set('query', term);
-        } else {
-            params.delete('query');
-        }
-        replace(`${pathname}?${params.toString()}`);
-    }, 300);
-
     return (
-        <Form action="/search" className="flex flex-col w-lg h-lg mx-auto justify-center">
+        <form action={handleSubmit} className="flex flex-col w-lg m-auto align-middle justify-center">
             <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
                 <legend className="fieldset-legend">Book Search</legend>
                 <div className="join">                    
@@ -54,12 +47,10 @@ export default function SearchGroup({}){
                             <path d="m21 21-4.3-4.3"></path>
                             </g>
                         </svg>
-                        <input 
+                        <input
+                        name="query"
                         type="search" 
                         required placeholder="Book Title, Keywords"
-                        onChange={(e) => {
-                        handleSearch(e.target.value);
-                        }}
                         defaultValue={searchParams.get('query')?.toString()}/>
                     </label>
                     <button type="submit" className="btn join-item rounded-r-full">
@@ -72,17 +63,24 @@ export default function SearchGroup({}){
                     <div className="collapse-content bg-base-200 border-base-300 rounded-box border p-4">
                         <div className="flex flex-col gap-2">
                             <label className="label">Author</label>
-                            <input type="text" className="input" placeholder="Author" />
+                            <input 
+                                type="text" className="input" placeholder="Author"
+                                name="author"
+                            />
 
                             <label className="label">Publisher</label>
-                            <input type="text" className="input" placeholder="Publisher" />
+                            <input type="text" className="input" placeholder="Publisher"
+                                name="publisher"
+                            />
 
                             <label className="label">Categories</label>
-                            <input type="text" className="input" placeholder="Category" />
+                            <input type="text" className="input" placeholder="Category"
+                                name="categories"
+                            />
                         </div>
                     </div>
                 </div>
             </fieldset>
-        </Form>
+        </form>
     )
 }

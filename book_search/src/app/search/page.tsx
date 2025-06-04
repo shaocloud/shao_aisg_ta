@@ -1,18 +1,15 @@
 import ResultList from "@/app/components/resultList";
+import SearchGroup from "../components/searchGroup";
 
-export default async function SearchPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
-}) {
-  const results = await searchParams;
-
-  console.log(JSON.stringify(results));
+export default async function SearchPage() {
   return(
     <>
-        <h1>Results</h1>
-        <ResultList params={searchParams}>
-        </ResultList> 
+        <div>
+            <SearchGroup/>
+            <h1>Results</h1>
+            <ResultList>
+            </ResultList> 
+        </div>
     </>
     )
 }

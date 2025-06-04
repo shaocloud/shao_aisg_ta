@@ -1,19 +1,22 @@
 'use client'
 
+import { fetchResults, Book, parseResults } from "../utils/data";
+import { useSearchParams } from "next/navigation";
 
-interface Book {
-    title: string;
-    author: string;
-    publisher: string;
-    categories: string[];
-}
-
-export default function ResultList({ 
-    params 
-}: { 
-    params: any
-}){
+export default function ResultList(){
+    const searchParams = useSearchParams();
+    const results = fetchResults(
+        searchParams.get('query'),
+        searchParams.get('author'),
+        searchParams.get('publisher'),
+        searchParams.get('categories')
+    )
+    const parsedResults : Book[] = parseResults(results);
+    
     const columns = ['title', 'author', 'publisher', 'categories']
+
+    console.log("[resultList] " + searchParams);
+    console.log("[resultList] " + JSON.stringify(results));
 
     const dummyResults: Book[] = [
         {
@@ -41,13 +44,14 @@ export default function ResultList({
             categories: ["Classic", "Fiction"]
         }
     ];
+    
     return (
         <div className="overflow-x-auto">
             <table className="table">
                 <thead>
                     <tr>
                         {columns.map((key)=>
-                            <th>
+                            <th key={key}>
                                 {key}
                             </th>
                         )
@@ -59,7 +63,7 @@ export default function ResultList({
                     dummyResults.map((row, index)=>
                         <tr key={index}>
                             {columns.map((col,idx)=>
-                                 <td>
+                                 <td key={idx}>
                                     {
                                     row[col as keyof Book] === undefined ? (
                                         'N/A'
