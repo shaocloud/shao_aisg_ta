@@ -7,11 +7,11 @@ export async function fetchResults(
     let url = `https://www.googleapis.com/books/v1/volumes?q=${query}`
 
     if(author)
-        url += `+inauthor=${author}`
+        url += `+inauthor:${author}`
     if(publisher)
-        url += `+inpublisher=${publisher}`
+        url += `+inpublisher:${publisher}`
     if(categories)
-        url += `+subject=${categories}`
+        url += `+subject:${categories}`
 
     console.log("[fetchResults] "+url);
 
@@ -19,24 +19,27 @@ export async function fetchResults(
     if (!result.ok) {
         throw new Error(`Failed to fetch search results: ${result.statusText}`);
     }
-//    console.log('result', await result.json());
+    
     return result.json();
 }
 
 // Handles logic for changing results to book list
-export function parseResults(
-    resultJson: Promise<{ [key: string]: string | string[] | undefined }>
-) : 
-    Book[]
+export async function parseResults(
+    resultJson: Promise<any>
+) : Promise<Book[]>
 {
-    return [
-        {
-            title: "To Kill a Mockingbird",
-            author: "Harper Lee",
-            publisher: "J. B. Lippincott & Co.",
-            categories: ["Classic", "Fiction"]
-        }
-    ]
+    const awaitedJson = await resultJson;
+
+    if (!awaitedJson.items) {
+        return [];
+    }
+    
+    return awaitedJson.items.map((item: any) => ({
+        title: item.volumeInfo?.title || "Unknown Title",
+        author: item.volumeInfo?.authors?.[0] || "Unknown Author",
+        publisher: item.volumeInfo?.publisher || "Unknown Publisher",
+        categories: item.volumeInfo?.categories || []
+    }));
 }
 
 export async function fetchVolume(volumeId: string) {
@@ -45,7 +48,7 @@ export async function fetchVolume(volumeId: string) {
         throw new Error(`Failed to fetch ${volumeId}: ${result.statusText}`);
     }
     
-    return result.json();
+    return await result.json();
 }
 
 export interface iSearch {

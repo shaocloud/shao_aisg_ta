@@ -2,49 +2,61 @@
 
 import { fetchResults, Book, parseResults } from "../utils/data";
 import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function ResultList(){
     const searchParams = useSearchParams();
-    const results = fetchResults(
-        searchParams.get('query'),
-        searchParams.get('author'),
-        searchParams.get('publisher'),
-        searchParams.get('categories')
-    )
-    const parsedResults : Book[] = parseResults(results);
-    
+    const [books, setBooks] = useState<Book[]>([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        const query = searchParams.get('query');
+        const author = searchParams.get('author');
+        const publisher = searchParams.get('publisher');
+        const categories = searchParams.get('categories');
+        
+        if (!query && !author && !publisher && !categories) {
+            setBooks([]);
+            return;
+        }
+
+        setLoading(true);
+        setError(null);
+
+        const fetchData = async () => {
+            try {
+                const results = await fetchResults(query, author, publisher, categories);
+                const parsedResults = await parseResults(Promise.resolve(results));
+                setBooks(parsedResults);
+            } catch (err) {
+                setError(err instanceof Error ? err.message : 'An error occurred');
+                setBooks([]);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, [searchParams]);
+
     const columns = ['title', 'author', 'publisher', 'categories']
 
-    console.log("[resultList] " + searchParams);
-    console.log("[resultList] " + JSON.stringify(results));
-
-    const dummyResults: Book[] = [
-        {
-            title: "The Lord of the Rings",
-            author: "J.R.R. Tolkien",
-            publisher: "Allen & Unwin",
-            categories: ["Fantasy", "Adventure"]
-        },
-        {
-            title: "Pride and Prejudice",
-            author: "Jane Austen",
-            publisher: "T. Egerton, Whitehall",
-            categories: ["Romance", "Classic"]
-        },
-        {
-            title: "1984",
-            author: "George Orwell",
-            publisher: "Secker & Warburg",
-            categories: ["Dystopian", "Science Fiction"]
-        },
-        {
-            title: "To Kill a Mockingbird",
-            author: "Harper Lee",
-            publisher: "J. B. Lippincott & Co.",
-            categories: ["Classic", "Fiction"]
-        }
-    ];
+    console.log("[resultList] searchParams: " + searchParams);
+    console.log("[resultList] results: " + JSON.stringify(books));    
     
+    if (loading) {
+        return <div className="loading loading-spinner loading-lg"></div>;
+    }
+
+    if (error) {
+        return <div className="alert alert-error">{error}</div>;
+    }
+
+    if (books.length === 0) {
+        return <div>No results found. Try a different search.</div>;
+    }
+
     return (
         <div className="overflow-x-auto">
             <table className="table">
@@ -59,8 +71,7 @@ export default function ResultList(){
                     </tr>
                 </thead>
                 <tbody>
-                    {dummyResults &&
-                    dummyResults.map((row, index)=>
+                    {books.map((row, index)=>
                         <tr key={index}>
                             {columns.map((col,idx)=>
                                  <td key={idx}>
