@@ -33,11 +33,13 @@ export default function SearchGroup({}){
         let optionalKeys = ['author', 'publisher', 'categories'];
         for(const key of optionalKeys)
         {
-            if(searchParams.get(key))
-                return false;
+            if(searchParams.get(key) !== "")
+                return true;
         }
-        return true;
+        return false;
     }
+
+    console.log("[searchGroup] isKeepExpanded: " + isKeepExpanded());
 
     return (
         <form action={handleSubmit} className="flex flex-col w-lg m-auto align-middle justify-center">
@@ -67,14 +69,15 @@ export default function SearchGroup({}){
                         Search
                     </button>
                 </div>
-                <div className="collapse bg-base-100 border-base-300 border">
+                <div className={`collapse bg-base-100 border-base-300 border`
+                    + (isKeepExpanded() ? " collapse-open" : "")
+                }>
                     <input type="checkbox" />
                     <div className="collapse-title font-semibold text-xs">Extra Filters</div>
-                    <div className={`collapse-content 
+                    <div className="collapse-content 
                         bg-base-200 
                         border-base-300 
-                        rounded-box border p-4 ` +
-                        (isKeepExpanded() === true ? "collapse-open": "")}>
+                        rounded-box border p-4">
                         <div className="flex flex-col gap-2">
                             <label className="label">Author</label>
                             <input 

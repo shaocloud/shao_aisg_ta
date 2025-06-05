@@ -6,7 +6,6 @@ export default async function SearchPage() {
     <>
         <div>
             <SearchGroup/>
-            <h1>Results</h1>
             <ResultList>
             </ResultList> 
         </div>

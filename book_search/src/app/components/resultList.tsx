@@ -67,7 +67,8 @@ export default function ResultList(){
     }
 
     return (
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto p-4">
+            <h1 className="text-2xl font-bold mb-4">Results</h1>
             <table className="table">
                 <thead>
                     <tr>
