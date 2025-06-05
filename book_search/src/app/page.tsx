@@ -1,5 +1,5 @@
 import SearchGroup from "@/app/components/searchGroup";
-import ResultList from "@/app/components/resultList";
+import ResultTable from "@/app/components/resultTable";
 
 export default function Home() {
 

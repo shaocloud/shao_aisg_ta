@@ -6,7 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-export default function ResultList(){
+export default function ResultTable(){
     const searchParams = useSearchParams();
     const [books, setBooks] = useState<Book[]>([]);
     const [loading, setLoading] = useState(false);

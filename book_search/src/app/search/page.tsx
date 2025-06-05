@@ -1,4 +1,4 @@
-import ResultList from "@/app/components/resultList";
+import ResultTable from "@/app/components/resultTable";
 import SearchGroup from "../components/searchGroup";
 
 export default async function SearchPage() {
@@ -6,8 +6,8 @@ export default async function SearchPage() {
     <>
         <div>
             <SearchGroup/>
-            <ResultList>
-            </ResultList> 
+            <ResultTable>
+            </ResultTable> 
         </div>
     </>
     )
