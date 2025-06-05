@@ -41,7 +41,10 @@ export async function parseResults(
         title: item.volumeInfo?.title || "Unknown Title",
         author: item.volumeInfo?.authors?.[0] || "Unknown Author",
         publisher: item.volumeInfo?.publisher || "Unknown Publisher",
-        categories: item.volumeInfo?.categories || []
+        categories: item.volumeInfo?.categories || [],
+        description: item.volumeInfo?.description || "No description available",
+        publishedDate: item.volumeInfo?.publishedDate || "Unknown Date",
+        pageCount: item.volumeInfo?.pageCount || "Unknown Page Count",
     }));
 }
 
@@ -68,4 +71,7 @@ export interface Book {
     author: string;
     publisher: string;
     categories: string[];
+    description: string;
+    publishedDate: string;
+    pageCount: string | number;
 }
