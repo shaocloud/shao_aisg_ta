@@ -27,7 +27,20 @@ export default function ResultItem(
                     {shortenText(book.publisher, 25)}
                     </div>
                 </div>
-                <div className="badge badge-primary">{book.categories.join(', ')}</div>
+                {
+                    book.categories.length > 0 &&
+                    <div className="badge badge-primary">
+                        {book.categories.join(', ')}
+                    </div>
+
+                }
+                {
+                    book.categories.length == 0 &&
+                    <div className="badge badge-neutral">
+                        Uncategorized
+                    </div>
+                    
+                }
                 <div className="tooltip" data-tip={book.description}>
                     <div className="text-sm mt-2">
                         {shortenText(book.description, 300)}

@@ -2,7 +2,8 @@ export async function fetchResults(
     query: string | null,
     author?: string | null,
     publisher?: string | null,
-    categories?: string | null
+    categories?: string | null,
+    page: number = 1
 ) {
     let url = `https://www.googleapis.com/books/v1/volumes?q=${query}`
 
@@ -12,6 +13,8 @@ export async function fetchResults(
         url += `+inpublisher:${publisher}`
     if(categories)
         url += `+subject:${categories}`
+
+    url += `&startIndex=${(page-1)*10}`
 
     console.log("[fetchResults] "+url);
 

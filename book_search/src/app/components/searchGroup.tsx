@@ -26,6 +26,9 @@ export default function SearchGroup({}){
                 params.delete(key)
         }
 
+        // Set to page 1 on new search
+        params.set('page', '1'); 
+
         replace(`${pathname}?${params.toString()}`);
     }
 
