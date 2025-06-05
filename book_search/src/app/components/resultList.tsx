@@ -49,10 +49,7 @@ export default function ResultList(){
         fetchData();
     }, [searchParams]);
 
-    const columns = ['imgUrl', 'title', 'author', 'publisher', 'categories']
-
-    console.log("[resultList] searchParams: " + searchParams);
-    console.log("[resultList] results: " + JSON.stringify(books));    
+    const columns = ['imgUrl', 'title', 'author', 'publisher', 'categories'] 
     
     if (loading) {
         return <div className="loading loading-spinner loading-lg"></div>;
@@ -73,7 +70,7 @@ export default function ResultList(){
                 <thead>
                     <tr>
                         {columns.map((key)=>
-                            <th key={key}>
+                            <th key={key} className={key === 'publisher' ? 'max-md:hidden' : ''}>
                                 {key}
                             </th>
                         )
@@ -84,7 +81,7 @@ export default function ResultList(){
                     {books.map((row, index)=>
                         <tr key={index}>
                             {columns.map((col,idx)=>
-                                 <td key={idx}>
+                                 <td key={idx} className={col === 'publisher' ? 'max-md:hidden' : ''}>
                                     {
                                     row[col as keyof Book] === undefined ? (
                                         'N/A'
@@ -97,6 +94,8 @@ export default function ResultList(){
                                                 />)
                                         ) : col === 'title' ? (
                                             (<Link href={`/book/${row['id']}`}>{row[col as keyof Book] as string}</Link>)
+                                        ) : col === 'publisher' ? (
+                                            (row[col as keyof Book] as string)
                                         ) : col === 'categories' ? (
                                             (row[col as keyof Book] as string[]).map((item : string, itemIdx : number) => (
                                                 <div className="badge badge-primary" key={itemIdx}>{item}</div>
