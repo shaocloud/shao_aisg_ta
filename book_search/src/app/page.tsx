@@ -1,5 +1,5 @@
 import SearchGroup from "@/app/components/searchGroup";
-import ResultTable from "@/app/components/resultTable";
+import ResultSection from "@/app/components/resultSection";
 
 export default function Home() {
 
