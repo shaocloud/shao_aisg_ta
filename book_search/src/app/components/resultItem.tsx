@@ -21,9 +21,9 @@ export default function ResultItem(
             </figure>
             <div className="card-body" style={{ flex: '2' }}>
                 <h2 className="card-title">{book.title}</h2>
-                <div className="flex justify-between">
-                    <div className="italic">{book.author}</div>
-                    <div className="text-base-content/50">
+                <div className="flex flex-col md:justify-between">
+                    <div className="w-full italic">{book.author}</div>
+                    <div className="w-full text-base-content/50">
                     {shortenText(book.publisher, 25)}
                     </div>
                 </div>
