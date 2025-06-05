@@ -6,8 +6,7 @@ export default async function SearchPage() {
     <>
         <div>
             <SearchGroup/>
-            <ResultSection>
-            </ResultSection> 
+            <ResultSection/> 
         </div>
     </>
     )

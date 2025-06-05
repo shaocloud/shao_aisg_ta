@@ -65,7 +65,7 @@ export default function ResultSection(){
                         bookCount < 1000 ?`(${bookCount} results found)` : "(1000+ results found)";
 
     return (
-        <div className="overflow-x-auto p-4">
+        <div className="overflow-x-auto p-4 flex flex-col">
             <div className="flex justify-between">
                 <h1 className="text-2xl font-bold mb-4">Results{` ` + resultText}</h1>
                 <input 
@@ -77,7 +77,9 @@ export default function ResultSection(){
                 />
             </div>
             {useTable ? <ResultTable books={books}/> : <ResultList books={books} />}
-            <PageBar page={page} setPage={setPage} totalResults={bookCount} resultsPerPage={10} />
+            <div className="justify-end mt-4">
+                <PageBar page={page} setPage={setPage} totalResults={bookCount} resultsPerPage={10} />
+            </div>
         </div>
     )
 }
