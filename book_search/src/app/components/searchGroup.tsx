@@ -62,7 +62,7 @@ export default function SearchGroup({}){
                         <input
                         name="query"
                         type="search" 
-                        required placeholder="Book Title, Keywords"
+                        required placeholder="Book Title, Author, Keywords"
                         defaultValue={searchParams.get('query')?.toString()}/>
                     </label>
                     <button type="submit" className="btn join-item rounded-r-full">

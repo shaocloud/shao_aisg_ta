@@ -4,12 +4,14 @@ import { fetchResults, Book, parseResults } from "../utils/data";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import ResultTable from "./resultTable";
+import ResultList from "./resultList";
 
 export default function ResultSection(){
     const searchParams = useSearchParams();
     const [books, setBooks] = useState<Book[]>([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const [useTable, setUseTable] = useState(false);
 
     useEffect(() => {
         const query = searchParams.get('query');
@@ -40,8 +42,6 @@ export default function ResultSection(){
 
         fetchData();
     }, [searchParams]);
-
-    const columns = ['imgUrl', 'title', 'author', 'publisher', 'categories'] 
     
     if (loading) {
         return <div className="loading loading-spinner loading-lg"></div>;
@@ -57,8 +57,17 @@ export default function ResultSection(){
 
     return (
         <div className="overflow-x-auto p-4">
-            <h1 className="text-2xl font-bold mb-4">Results</h1>
-            <ResultTable books={books}/>
+            <div className="flex justify-between">
+                <h1 className="text-2xl font-bold mb-4">Results</h1>
+                <input 
+                    type="checkbox" 
+                    id="useTable"
+                    checked={useTable} 
+                    onChange={(e) => setUseTable(e.target.checked)}
+                    className="toggle" 
+                />
+            </div>
+            {useTable ? <ResultTable books={books}/> : <ResultList books={books} />}
         </div>
     )
 }
