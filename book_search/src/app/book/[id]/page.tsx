@@ -41,7 +41,7 @@ export default async function Page({
     const response = await fetchVolume( bookId );
 
     return (
-        <div className='flex flex-col items-center h-screen justify-center max-w-4xl mx-auto'>
+        <div className='flex flex-col items-center justify-center max-w-4xl mx-auto'>
             <div className='flex flex-col md:flex-row items-center p-2'>
                 <div className='flex-shrink-0 px-4 py-4'>
                     <img src={getImageUrl(response.volumeInfo?.imageLinks)} alt={"Image for "+ response.volumeInfo.title} />
@@ -60,7 +60,7 @@ export default async function Page({
                                     response.volumeInfo.categories.map((category : string, index : number) => (
                                         <span 
                                         key={index+category} 
-                                        className='badge badge-primary badge-sm tooltip' 
+                                        className='tooltip badge badge-primary badge-sm' 
                                         data-tip={category}>
                                             {
                                                 // get the last 20 characters of the category
@@ -80,6 +80,13 @@ export default async function Page({
                                 <p className='text-sm mt-2 text-base-content/50'>No description available</p>
                         }
                         <div className='divider my-1'></div>
+                        <div>Bibliographical Info.</div>
+                        <div className='text-sm text-base-content/70'>
+                            <p>Publisher: {response.volumeInfo.publisher || <i>No publisher available</i>}</p>
+                            <p>Published Date: {response.volumeInfo.publishedDate || <i>No published date available</i>}</p>
+                            <p>ISBN: {response.volumeInfo.industryIdentifiers?.find((id) => id.type === 'ISBN_13')?.identifier || <i>No ISBN available</i>}</p>
+                            <p>Page Count: {response.volumeInfo.pageCount || <i>No page count available</i>}</p>
+                        </div>
                         <div className='card-actions justify-end mt-4'>
                             {
                                 response.volumeInfo.previewLink &&

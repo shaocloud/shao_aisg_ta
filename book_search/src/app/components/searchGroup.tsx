@@ -29,7 +29,8 @@ export default function SearchGroup({}){
         // Set to page 1 on new search
         params.set('page', '1'); 
 
-        replace(`${pathname}?${params.toString()}`);
+        const targetPath = pathname === '/' ? '/search' : pathname;
+        replace(`${targetPath}?${params.toString()}`);
     }
 
     // Keeps filters expanded if filled
