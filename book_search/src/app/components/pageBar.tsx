@@ -29,7 +29,7 @@ export function PageBar(
     };
     
     return (
-        <div className="flex btn-group w-full justify-center mt-4">
+        <div className="flex w-full justify-center mt-4">
             <button 
                 className="btn" 
                 onClick={() => changePage(Math.max(1, page - 1))}
@@ -37,8 +37,7 @@ export function PageBar(
             >
                 Previous
             </button>
-            <span className="btn">{`Page ${page} of ${
-                totalPages > 100 ? '100+' : totalPages}`}</span>
+            <div className="btn px-4">{`Page ${page}`}</div>
             <button 
                 className="btn" 
                 onClick={() => changePage(Math.min(totalPages, page + 1))}
