@@ -39,8 +39,7 @@ export async function parseResults(
     
     return awaitedJson.items.map((item: any) => ({
         id: item.id,
-        imgUrl: item.volumeInfo?.imageLinks?.thumbnail 
-        || undefined,
+        imgUrl: getImageUrl(item.volumeInfo?.imageLinks),
         title: item.volumeInfo?.title || "Unknown Title",
         author: item.volumeInfo?.authors?.[0] || "Unknown Author",
         publisher: item.volumeInfo?.publisher || "Unknown Publisher",
@@ -58,6 +57,14 @@ export async function fetchVolume(volumeId: string) {
     }
     
     return await result.json();
+}
+
+export function getImageUrl(imageLinks?: any): string {
+    if (!imageLinks) {
+        return "/book_not_available.svg";
+    }
+    
+    return imageLinks.thumbnail || imageLinks.smallThumbnail || "/book_not_available.svg";
 }
 
 export interface iSearch {
