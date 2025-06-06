@@ -1,7 +1,7 @@
 import { fetchVolume } from '@/app/utils/data'
 import { getImageUrl } from '@/app/utils/data';
 import Link from 'next/link'
-import { LinkExternalIcon,  } from '@primer/octicons-react';
+import { LinkExternalIcon } from '@primer/octicons-react';
 import type { Metadata } from 'next';
 import BackButton from '@/app/book/[id]/backButton';
 
@@ -91,7 +91,7 @@ export default async function Page({
                         <div className='text-sm text-base-content/70'>
                             <p>Publisher: {response.volumeInfo.publisher || <i>No publisher available</i>}</p>
                             <p>Published Date: {response.volumeInfo.publishedDate || <i>No published date available</i>}</p>
-                            <p>ISBN: {response.volumeInfo.industryIdentifiers?.find((id) => id.type === 'ISBN_13')?.identifier || <i>No ISBN available</i>}</p>
+                            <p>ISBN: {response.volumeInfo.industryIdentifiers?.find((id: {type: string}) => id.type === 'ISBN_13')?.identifier || <i>No ISBN available</i>}</p>
                             <p>Page Count: {response.volumeInfo.pageCount || <i>No page count available</i>}</p>
                         </div>
                         <div className='card-actions justify-end mt-4'>
