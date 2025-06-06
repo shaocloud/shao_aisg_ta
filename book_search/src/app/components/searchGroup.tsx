@@ -32,6 +32,7 @@ export default function SearchGroup({}){
         replace(`${pathname}?${params.toString()}`);
     }
 
+    // Keeps filters expanded if filled
     const isKeepExpanded = () => {
         let optionalKeys = ['author', 'publisher', 'categories'];
         for(const key of optionalKeys)
@@ -41,8 +42,6 @@ export default function SearchGroup({}){
         }
         return false;
     }
-
-    console.log("[searchGroup] isKeepExpanded: " + isKeepExpanded());
 
     return (
         <form action={handleSubmit} className="flex flex-col w-lg m-auto align-middle justify-center">

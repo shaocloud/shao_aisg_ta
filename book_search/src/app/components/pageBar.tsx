@@ -4,12 +4,10 @@ import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 export function PageBar(
     {
         page,
-        setPage,
         totalResults,
         resultsPerPage
     } : {
         page: number,
-        setPage: (page: number) => void,
         totalResults: number,
         resultsPerPage: number
     }
@@ -26,7 +24,7 @@ export function PageBar(
         }
         const params = new URLSearchParams(searchParams.toString());
         params.set('page', newPage.toString());
-
+        
         replace(`${pathname}?${params.toString()}`);
     };
     

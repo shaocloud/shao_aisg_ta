@@ -14,13 +14,13 @@ export default function ResultSection(){
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [useTable, setUseTable] = useState(false);
-    const [page, setPage] = useState(1);
 
     useEffect(() => {
         const query = searchParams.get('query');
         const author = searchParams.get('author');
         const publisher = searchParams.get('publisher');
         const categories = searchParams.get('categories');
+        const urlPage = searchParams.get('page') ? parseInt(searchParams.get('page') as string) : 1;
         
         if (!query && !author && !publisher && !categories) {
             setBooks([]);
@@ -32,9 +32,9 @@ export default function ResultSection(){
 
         const fetchData = async () => {
             try {
-                const results = await fetchResults(query, author, publisher, categories, page);
+                const results = await fetchResults(query, author, publisher, categories, urlPage);
                 setBookCount(results.totalItems || 0);
-                console.log(`Total items found: ${bookCount}`);
+                console.log(`Total items found: ${results.totalItems || 0}`);
                 const parsedResults = await parseResults(results);
                 setBooks(parsedResults);
             } catch (err) {
@@ -46,7 +46,7 @@ export default function ResultSection(){
         };
 
         fetchData();
-    }, [searchParams, page]);
+    }, [searchParams]); // Remove 'page' from dependency array
     
     if (loading) {
         return <div className="loading loading-spinner loading-lg"></div>;
@@ -64,6 +64,8 @@ export default function ResultSection(){
                         "(1 result found)" : 
                         bookCount < 1000 ?`(${bookCount} results found)` : "(1000+ results found)";
 
+    const currentPage = searchParams.get('page') ? parseInt(searchParams.get('page') as string) : 1;
+
     return (
         <div className="overflow-x-auto p-4 flex flex-col">
             <div className="flex justify-between">
@@ -78,7 +80,7 @@ export default function ResultSection(){
             </div>
             {useTable ? <ResultTable books={books}/> : <ResultList books={books} />}
             <div className="justify-end mt-4">
-                <PageBar page={page} setPage={setPage} totalResults={bookCount} resultsPerPage={10} />
+                <PageBar page={currentPage} totalResults={bookCount} resultsPerPage={10} />
             </div>
         </div>
     )

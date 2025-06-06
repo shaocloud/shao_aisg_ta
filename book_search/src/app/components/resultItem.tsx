@@ -1,5 +1,17 @@
 import { Book } from "../utils/data";
 
+/**
+ * A component that displays a single search result in a card format.
+ * @param {{ book: Book }} props
+ * @prop {Book} book The book object to be displayed. It should contain the following properties:
+ * - id: string
+ * - imgUrl: string
+ * - title: string
+ * - author: string
+ * - publisher: string
+ * - categories: string[]
+ * - description: string
+ */
 export default function ResultItem(
     { book } : { book: Book }
 )

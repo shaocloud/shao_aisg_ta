@@ -1,11 +1,16 @@
 'use client'
 
-import { fetchResults, Book, parseResults } from "../utils/data";
-import { useSearchParams } from "next/navigation";
-import Link from "next/link";
-import Image from "next/image";
-import { useEffect, useState } from "react";
+import { Book } from "../utils/data";
 import ResultItem from "./resultItem";
+
+/**
+ * Displays a list of book results using the ResultItem component
+ *
+ * @component
+ * @param {Object} props - Component properties
+ * @param {Book[]} props.books - Array of book objects to display
+ * @returns Rendered ResultList component
+ */
 export default function ResultList(
     { books } : { books: Book[] }
 ) {
