@@ -46,15 +46,13 @@ Requirements:
 1. Move to the `book_search` directory
 2. Install packages using `pnpm i`
 3. Run the dev server with `pnpm dev`
+4. Open [http://localhost:3000]() to begin!
 
 ```bash
 cd book_search
 pnpm i
 pnpm dev
 ```
-
-
-To be detailed!
 
 #### :book: Google Books API Fundamentals
 
@@ -90,13 +88,19 @@ Filters types of returned books, could be good as tags
 
 E.G.
 
-```GET https://www.googleapis.com/books/v1/volumes?q=flowers&filter=free-ebooks&key=yourAPIKey```
+```GET https://www.googleapis.com/books/v1/volumes?q=flowers&filter=free-ebooks```
 
 ##### Pagination
 - `startIndex`
 - `maxResults`
 
+##### totalItems note!
+
+The `totalItems` field is broken and doesn't accurately represent the number of available items. As such, we are unable to actually use it for accurate pagination.
+
 ##### Fields
+
+Used to narrow down returned info 
 
 E.G.
 
