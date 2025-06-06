@@ -17,6 +17,8 @@ Conducts a word count of `assets\pg16317.txt`.
 
 Prints top 10-20 word frequencies to console and total frequencies to `wordcount.txt`.
 
+No need for third party packages!
+
 To run:
 ```bash
 cd wordcounter
@@ -54,6 +56,8 @@ pnpm i
 pnpm dev
 ```
 
+
+---
 #### :book: Google Books API Fundamentals
 
 Searches can be done using
