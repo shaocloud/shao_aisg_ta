@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { BookIcon } from "@primer/octicons-react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,8 +14,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Google Books Search",
-  description: "By Tan Shao Yun",
+  title: {
+    template: "%s | BookSearch",
+    default: "BookSearch",
+  },
+  description: "Tan Shao Yun",
 };
 
 export default function RootLayout({
@@ -27,6 +31,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <div className="navbar bg-base-100">
+          <div className="flex-1">
+            <a href="/" className="btn btn-ghost normal-case text-xl">
+              <BookIcon size={24} />
+              BookSearch
+            </a>
+          </div>
+        </div>
         {children}
       </body>
     </html>
