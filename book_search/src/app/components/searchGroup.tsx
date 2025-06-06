@@ -44,7 +44,7 @@ export default function SearchGroup({}){
     }
 
     return (
-        <form action={handleSubmit} className="flex flex-col w-lg m-auto p-4 align-middle justify-center">
+        <form action={handleSubmit} className="flex flex-col w-xs md:w-1/2 m-auto p-4 align-middle justify-center">
             <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
                 <legend className="fieldset-legend">Book Search</legend>
                 <div className="join">                    

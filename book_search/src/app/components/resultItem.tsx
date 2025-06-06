@@ -1,4 +1,5 @@
 import { Book } from "../utils/data";
+import { useState, useEffect } from "react";
 
 /**
  * A component that displays a single search result in a card format.
@@ -16,6 +17,22 @@ export default function ResultItem(
     { book } : { book: Book }
 )
 {
+    const [windowWidth, setWindowWidth] = useState(0);
+
+    useEffect(() => {
+        const handleResize = () => setWindowWidth(window.innerWidth);
+        handleResize(); // Set initial width
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    const getResponsiveCategoryLimit = () => {
+        if (windowWidth >= 1024) return 25; // lg and above
+        if (windowWidth >= 768) return 20;  // md
+        if (windowWidth >= 640) return 15;  // sm
+        return 10; // xs
+    };
+
     const shortenText = (description: string, maxLength: number = 100) => {
         if (description.length <= maxLength) {
             return description;
@@ -41,8 +58,9 @@ export default function ResultItem(
                 </div>
                 {
                     book.categories.length > 0 &&
-                    <div className="badge badge-primary">
-                        {book.categories.join(', ')}
+
+                    <div className="badge badge-primary tooltip" data-tip={book.categories.join(', ')}>
+                        {shortenText(book.categories.join(', '), getResponsiveCategoryLimit())}
                     </div>
 
                 }
@@ -54,9 +72,15 @@ export default function ResultItem(
                     
                 }
                 <div className="tooltip" data-tip={book.description}>
-                    <div className="text-sm mt-2">
-                        {shortenText(book.description, 300)}
-                    </div>
+                    { book.description === "No description available" ?
+                        <div className="text-sm mt-2 text-base-content/50">
+                            {book.description}
+                        </div>
+                        :
+                        <div className="text-sm mt-2">
+                            {shortenText(book.description, 100)}
+                        </div>
+                    }
                 </div>
                 <p/>
                 <div className="card-actions justify-end">
