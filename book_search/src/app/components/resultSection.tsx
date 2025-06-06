@@ -54,13 +54,17 @@ export default function ResultSection(){
         <div className="overflow-x-auto p-4 flex flex-col">
             <div className="flex justify-between">
                 <h1 className="text-2xl font-bold mb-4">Results</h1>
-                <input 
-                    type="checkbox" 
-                    id="useTable"
-                    checked={useTable} 
-                    onChange={(e) => setUseTable(e.target.checked)}
-                    className="toggle" 
-                />
+                <div className="flex gap-2">
+                    <label className="badge">List</label>
+                    <input 
+                        type="checkbox" 
+                        id="useTable"
+                        checked={useTable} 
+                        onChange={(e) => setUseTable(e.target.checked)}
+                        className="toggle" 
+                    />
+                    <label className="badge">Table</label>
+                </div>
             </div>    
             <div className="">
                 {/*Loading spinner*/

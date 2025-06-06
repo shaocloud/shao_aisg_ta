@@ -12,6 +12,7 @@ export function PageBar(
         resultsPerPage: number
     }
 ) {
+    // Seems to only be accurate for the last page!
     const totalPages = Math.ceil(totalResults / resultsPerPage);
 
     const searchParams = useSearchParams();
@@ -29,21 +30,21 @@ export function PageBar(
     };
     
     return (
-        <div className="flex w-full justify-center mt-4">
+        <div className="flex w-full justify-center join mt-4">
             <button 
-                className="btn" 
+                className="join-item btn" 
                 onClick={() => changePage(Math.max(1, page - 1))}
                 disabled={page === 1}
             >
-                Previous
+                «
             </button>
-            <div className="btn px-4">{`Page ${page}`}</div>
+            <div className="join-item btn">{`Page ${page}`}</div>
             <button 
-                className="btn" 
+                className="join-item btn" 
                 onClick={() => changePage(Math.min(totalPages, page + 1))}
                 disabled={page === totalPages}
             >
-                Next
+                »
             </button>
         </div>
     );

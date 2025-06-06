@@ -1,6 +1,14 @@
 import { fetchVolume } from '@/app/utils/data'
 import { getImageUrl } from '@/app/utils/data';
 
+/**
+ * Page showing information for a specific book.
+ * 
+ * @param {Promise<{ id: string }>} params - A promise that resolves to an object containing the book ID.
+ * 
+ * @returns The book's image, title, ID, authors, and description.
+ */
+
 export default async function Page({
     params,
 }:{
@@ -10,15 +18,10 @@ export default async function Page({
 
     const response = await fetchVolume( bookId );
 
-    const imgUrl = 
-        getImageUrl(response.volumeInfo?.imageLinks) ||
-        "https://placehold.co/128x200?text=No+Image+Available";
-        
-    console.log('response', response);
     return (
         <div className='flex flex-col md:flex-row items-center p-4'>
             <div className='flex-shrink-0 px-4 py-4'>
-                <img src={imgUrl} alt={"Image for "+ response.volumeInfo.title} />
+                <img src={getImageUrl(response.volumeInfo?.imageLinks)} alt={"Image for "+ response.volumeInfo.title} />
             </div>
             <div>
                 <h1>{response.volumeInfo.title} ({response.volumeInfo.publishedDate})</h1>

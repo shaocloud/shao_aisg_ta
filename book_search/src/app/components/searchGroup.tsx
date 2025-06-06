@@ -79,8 +79,8 @@ export default function SearchGroup({}){
                     <div className="collapse-content 
                         bg-base-200 
                         border-base-300 
-                        rounded-box border p-4">
-                        <div className="flex flex-col gap-2">
+                        rounded-box border">
+                        <div className="flex flex-col gap-2 my-2">
                             <label className="label">Author</label>
                             <input 
                                 type="text" className="input" placeholder="Author"
