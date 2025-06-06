@@ -1,13 +1,17 @@
 import { fetchVolume } from '@/app/utils/data'
 import { getImageUrl } from '@/app/utils/data';
 import Link from 'next/link'
-import { LinkExternalIcon } from '@primer/octicons-react';
-import type { Metadata, ResolvingMetadata } from 'next';
- 
-type Props = {
-  params: Promise<{ bookId: string }>
-}
+import { LinkExternalIcon,  } from '@primer/octicons-react';
+import type { Metadata } from 'next';
+import BackButton from '@/app/book/[id]/backButton';
 
+/**
+ * Dynamically adds the title to the page.
+ * 
+ * @param {Promise<{ id: string }>} params - A promise that resolves to an object containing the book ID.
+ * 
+ * @returns Metadata object with the book title.
+ */
 export async function generateMetadata({
     params,
 }:{
@@ -31,17 +35,20 @@ export async function generateMetadata({
  * @returns The book's image, title, ID, authors, and description.
  */
 
+// Client component for back button functionality
+
+
 export default async function Page({
     params,
 }:{
     params: Promise<{ id: string }>,
 }) {
     const bookId = (await params).id;
-
     const response = await fetchVolume( bookId );
 
     return (
-        <div className='flex flex-col items-center justify-center max-w-4xl mx-auto'>
+        <div className='flex flex-col items-center justify-center max-w-4xl mx-auto p-4'>
+            <BackButton />
             <div className='flex flex-col md:flex-row items-center p-2'>
                 <div className='flex-shrink-0 px-4 py-4'>
                     <img src={getImageUrl(response.volumeInfo?.imageLinks)} alt={"Image for "+ response.volumeInfo.title} />

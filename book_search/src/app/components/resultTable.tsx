@@ -14,7 +14,7 @@ export default function ResultTable(
     }
 
     return (            
-    <table className="table">
+    <table className="table responsive w-full">
         <thead>
             <tr>
                 {columns.map((key)=>
@@ -27,7 +27,7 @@ export default function ResultTable(
         </thead>
         <tbody>
             {books.map((row, index)=>
-                <tr key={index}>
+                <tr key={index} className="hover:bg-base-300">
                     {columns.map((col,idx)=>
                             <td key={idx} className={col === 'publisher' ? 'max-md:hidden' : ''}>
                             {
