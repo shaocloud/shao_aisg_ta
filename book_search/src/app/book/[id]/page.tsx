@@ -31,20 +31,26 @@ export default async function Page({
                         <div className='card-title'>
                             <h1 className='text-2xl font-bold'>{response.volumeInfo.title}</h1>
                         </div>
-                        <p className='text-xs italic text-base/50'>{response.id}</p>
-                        {
-                            response.volumeInfo.authors ?
-                                <p>By {response.volumeInfo.authors?.join(', ')}</p>
-                                :
-                                <p className='text-base-content/50'>No authors listed</p>
-                        }
-                        <div className='divider'></div>
+                        {/* <p className='text-xs italic text-base/50'>{response.id}</p> */}
+                        <p className='text-sm text-base-content/70'>{response.volumeInfo.authors?.join(', ') || <i>No authors listed</i>}</p>
+                        <div className='divider my-1'></div>
+                        <div className='flex flex-wrap gap-2'>
+                            {
+                                response.volumeInfo.categories?.length > 0 ?
+                                    response.volumeInfo.categories.map((category, index) => (
+                                        <span key={index} className='badge badge-primary badge-sm '>{category}</span>
+                                    ))
+                                    :
+                                    <span className='badge badge-neutral'>Uncategorized</span>
+                            }
+                        </div>
                         {
                             response.volumeInfo.description ?
                                 <p className='text-sm mt-2'>{response.volumeInfo.description}</p>
                                 :
                                 <p className='text-sm mt-2 text-base-content/50'>No description available</p>
                         }
+                        <div className='divider my-1'></div>
                         <div className='card-actions justify-end mt-4'>
                             {
                                 response.volumeInfo.previewLink &&
