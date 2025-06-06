@@ -1,6 +1,7 @@
 import { fetchVolume } from '@/app/utils/data'
 import { getImageUrl } from '@/app/utils/data';
 import Link from 'next/link'
+import { LinkExternalIcon } from '@primer/octicons-react';
 
 /**
  * Page showing information for a specific book.
@@ -21,19 +22,30 @@ export default async function Page({
 
     return (
         <div className='flex flex-col items-center h-screen justify-center max-w-4xl mx-auto'>
-            <div className='flex flex-col md:flex-row items-center p-4'>
+            <div className='flex flex-col md:flex-row items-center p-2'>
                 <div className='flex-shrink-0 px-4 py-4'>
                     <img src={getImageUrl(response.volumeInfo?.imageLinks)} alt={"Image for "+ response.volumeInfo.title} />
                 </div>
                 <div className='card card-xl card-border bg-base-100 shadow-xl flex-1'>
                     <div className='card-body'>
-                        <div className='card-title flex items-center gap-2'>
+                        <div className='card-title'>
                             <h1 className='text-2xl font-bold'>{response.volumeInfo.title}</h1>
                         </div>
                         <p className='text-xs italic text-base/50'>{response.id}</p>
-                        <p>By {response.volumeInfo.authors?.join(', ') || "Author Unknown"}</p>
-                        <p>{response.volumeInfo.description || "No description available"}</p>
-                        <div className='card-actions justify-end'>
+                        {
+                            response.volumeInfo.authors ?
+                                <p>By {response.volumeInfo.authors?.join(', ')}</p>
+                                :
+                                <p className='text-base-content/50'>No authors listed</p>
+                        }
+                        <div className='divider'></div>
+                        {
+                            response.volumeInfo.description ?
+                                <p className='text-sm mt-2'>{response.volumeInfo.description}</p>
+                                :
+                                <p className='text-sm mt-2 text-base-content/50'>No description available</p>
+                        }
+                        <div className='card-actions justify-end mt-4'>
                             {
                                 response.volumeInfo.previewLink &&
                                 <Link 
@@ -43,6 +55,7 @@ export default async function Page({
                                     className='btn btn-primary'
                                 >
                                     Preview
+                                    <LinkExternalIcon />
                                 </Link>
                             }
                             <Link 
@@ -52,6 +65,7 @@ export default async function Page({
                                 className='btn btn-primary'
                             >
                                 View on Google Books
+                                    <LinkExternalIcon />
                             </Link>
                         </div>
                     </div>

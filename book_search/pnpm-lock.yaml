@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@primer/octicons-react':
+        specifier: ^19.15.2
+        version: 19.15.2(react@19.1.0)
       next:
         specifier: 15.3.3
         version: 15.3.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -339,6 +342,12 @@ packages:
   '@nolyfill/is-core-module@1.0.39':
     resolution: {integrity: sha512-nn5ozdjYQpUCZlWGuxcJY/KpxkWQs4DcbMCmKojjyrYDEAGy4Ce19NN4v5MduafTwJlbKc99UA8YhSVqq9yPZA==}
     engines: {node: '>=12.4.0'}
+
+  '@primer/octicons-react@19.15.2':
+    resolution: {integrity: sha512-bVpBKLm5wOdVlwvjCU/uD4JeeVv5iQWpCO0kgkUYX7yzGgV0mf427kdzqKacYMY5rgcbpmiCKAqFe4j6hXz0ow==}
+    engines: {node: '>=8'}
+    peerDependencies:
+      react: '>=16.3'
 
   '@rtsao/scc@1.1.0':
     resolution: {integrity: sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==}
@@ -2044,6 +2053,10 @@ snapshots:
       fastq: 1.19.1
 
   '@nolyfill/is-core-module@1.0.39': {}
+
+  '@primer/octicons-react@19.15.2(react@19.1.0)':
+    dependencies:
+      react: 19.1.0
 
   '@rtsao/scc@1.1.0': {}
 

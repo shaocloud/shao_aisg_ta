@@ -60,7 +60,8 @@ export default function ResultItem(
                 </div>
                 <p/>
                 <div className="card-actions justify-end">
-                    <a href={`/book/${book.id}`} className="btn btn-primary">View Details</a>
+                    <a href={`/book/${book.id}`} 
+                    className="btn btn-primary btn-sm md:btn-md">View Details</a>
                 </div>
             </div>
         </div>
